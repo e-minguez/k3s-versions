@@ -48,10 +48,9 @@ def main():
 		sys.exit("CHANGED=false")
 	# Otherwise, save it for the future
 	else:
+		print("CHANGED=true")
 		with open(FILE, "w") as json_file:
 			json_file.write(json.dumps(data, sort_keys=True))
-
-
 
 	templates_dir = os.path.join(
 		os.path.dirname(os.path.realpath(__file__)), "templates"

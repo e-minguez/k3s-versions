@@ -56,7 +56,7 @@ jobs:
       id: run
       run: |
         pip install -r requirements.txt
-        python k3s-versions.py >> "${GITHUB_OUTPUT}"
+        python k3s-versions.py > "${GITHUB_OUTPUT}"
 
     - name: Commit & Push changes
       if: steps.run.outputs.CHANGED != 'False'
