@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+</head>
+<body>
+  <a class="github-fork-ribbon" href="https://github.com/e-minguez/k3s-versions" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
+  <div class="container">
+  <h1 class="display-1 text-center">Stable: <a href="https://github.com/k3s-io/k3s/releases/tag/{{ stable }}/">{{ stable }}</a></h1>
+  <h1 class="display-1 text-center">Latest: <a href="https://github.com/k3s-io/k3s/releases/tag/{{ latest }}/">{{ latest }}</a></h1>
+  <h1 class="display-1 text-center">Testing: <a href="https://github.com/k3s-io/k3s/releases/tag/{{ testing }}/">{{ testing }}</a></h1>
+  <div class="alert alert-warning" role="alert">
+    {{ disclaimer }}
+  </div>
+  <div class="alert alert-light" role="alert">
+    <p>Last modification: {{ mod_date }} (UTC)</p>
+    <p class="text-center">Made with ❤ in Czech Republic and Spain</p>
+  </div>
+</div>
+</body>
+</html>
