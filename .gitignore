@@ -160,5 +160,5 @@ cython_debug/
 #.idea/
 
 
-versions.json
-index.html
+*-versions.json
+*-index.html

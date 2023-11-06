@@ -13,7 +13,8 @@ from datetime import datetime
 
 URL = "https://update.k3s.io/v1-release/channels"
 HEADERS = {"accept": "application/json"}
-
+FILE = "k3s-versions.json"
+HTML = "k3s-index.html"
 TITLE = "K3s versions"
 DISCLAIMER = """
 <p>This is an unofficial source</p>
@@ -24,7 +25,7 @@ to get more information</p>
 def main():
 	# Open the previous json data
 	try:
-		with open("versions.json") as json_file:
+		with open(FILE) as json_file:
 				previous = json.load(json_file)
 	except Exception:
 			previous = {}
@@ -47,7 +48,7 @@ def main():
 		sys.exit("Dupe")
 	# Otherwise, save it for the future
 	else:
-		with open("versions.json", "w") as json_file:
+		with open(FILE, "w") as json_file:
 			json_file.write(json.dumps(data, sort_keys=True))
 
 
@@ -66,7 +67,7 @@ def main():
 
 	mod_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
-	with open("index.html", "w") as output_file:
+	with open(HTML, "w") as output_file:
 			output_file.write(
 					template.render(
 							title=TITLE,
