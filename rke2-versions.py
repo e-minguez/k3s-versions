@@ -45,7 +45,7 @@ def main():
 	
 	# If the data didn't changed, exit soon
 	if data == previous:
-		sys.exit("Dupe")
+		sys.exit("CHANGED=false")
 	# Otherwise, save it for the future
 	else:
 		with open(FILE, "w") as json_file:

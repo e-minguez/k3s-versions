@@ -1,0 +1,84 @@
+name: Run build.sh and publish to GHPages
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron:  '56 * * * *'
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.run.outputs.CHANGED }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    # Use GitHub Actions' cache to shorten build times and decrease load on servers
+    - name: pip cache
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-pip
+      with:
+        path: ~/.cache/pip
+        key: ${{ env.cache-name }}-${{ hashFiles('**/requirements/*') }}
+        restore-keys: ${{ env.cache-name }}-
+
+    # Cache versions.json so it doesn't update the site if there are no changes
+    - name: versions.json cache
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-versions-json
+      with:
+        path: "*-versions.json"
+        key: ${{ env.cache-name }}-${{ github.run_id }}
+        restore-keys: ${{ env.cache-name }}-
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Run k3s-versions
+      id: run
+      run: |
+        pip install -r requirements.txt
+        python k3s-versions.py >> "${GITHUB_OUTPUT}"
+
+    - name: Commit & Push changes
+      if: steps.run.outputs.CHANGED != 'False'
+      uses: actions-js/push@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        message: "[no ci] Updated versions.json files"
+
+    - name: Upload artifact
+      if: steps.run.outputs.CHANGED != 'False'
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: ./k3s-index.html
+
+  # Deployment job
+  deploy:
+    if: needs.build.outputs.CHANGED != 'False'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
