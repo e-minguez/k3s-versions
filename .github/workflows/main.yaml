@@ -19,7 +19,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-json:
     runs-on: ubuntu-latest
     outputs:
       changed: ${{ steps.run.outputs.CHANGED }}
@@ -65,15 +65,22 @@ jobs:
         path: ./k3s.json
         name: k3s-versions
 
-  # # Deployment job
-  # deploy:
-  #   if: needs.build.outputs.CHANGED != 'False'
-  #   environment:
-  #     name: github-pages
-  #     url: ${{ steps.deployment.outputs.page_url }}
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #     - name: Deploy to GitHub Pages
-  #       id: deployment
-  #       uses: actions/deploy-pages@v2
+  # Deployment job
+  build-ui:
+    if: needs.build.outputs.CHANGED != 'False'
+    runs-on: ubuntu-latest
+    needs: build-json
+    steps:
+      - name: Download json from build-json job
+        uses: actions/download-artifact@v3
+        with:
+          name: k3s-versions
+
+      - shell: bash
+        run: |
+          mv k3s.json data/
+
+      - name: Deploy to GitHub Pages
+        uses: enriikke/gatsby-gh-pages-action@v2
+        with:
+          access-token: ${{ secrets.ACCESS_TOKEN }}
