@@ -8,7 +8,7 @@ const K3sVersionsPage = () => {
   return (
     <Layout>
       <main>
-        <h1>Here are k3s versions</h1>
+        <h1 className="text-white bg-jungleGreen px-4 py-2">Here are k3s versions</h1>
         <ul>
           {data.map((channel) => (
             <li key={channel.id}>{channel.name}</li>
