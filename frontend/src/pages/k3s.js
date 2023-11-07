@@ -5,7 +5,6 @@ import CommonHead from '../components/CommonHead';
 
 const K3sVersionsPage = () => {
   const versions = k3sVersionsJSON['k3s-versions'];
-  console.log('k3sVersionsJSON', k3sVersionsJSON['k3s-versions']);
   return (
     <Layout>
       <main>
