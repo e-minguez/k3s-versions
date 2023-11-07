@@ -9,22 +9,26 @@ import jinja2
 
 from datetime import datetime
 
+from github import Github
+
+# Authentication is defined via github.Auth
+from github import Auth
+
+# using an access token
+auth = Auth.Token(os.environ["GITHUB_TOKEN"])
+
+# Public Web Github
+g = Github(auth=auth)
+
+repo = g.get_repo('k3s-io/k3s')
 
 URL = "https://update.k3s.io/v1-release/channels"
 HEADERS = {"accept": "application/json"}
 FILE = "k3s-versions.json"
-HTML = "k3s-index.html"
 GITHUBRELEASES = "https://github.com/k3s-io/k3s/releases/tag/"
-RELEASENOTES = "https://docs.k3s.io/release-notes/"
-VERSIONSWITHRELEASENOTES = ["v1.24","v1.25","v1.26","v1.27","v1.28"]
-OUTPUTFILE = "k3s.json"
 
-TITLE = "K3s versions"
-DISCLAIMER = """
-<p>This is an unofficial source</p>
-<p>Please visit <a href="https://docs.k3s.io/">the official site</a>
-to get more information</p>
-"""
+VERSIONSWITHRELEASENOTES = ["v1.24","v1.25","v1.26","v1.27","v1.28","latest","stable"]
+OUTPUTFILE = "data/k3s.json"
 
 def main():
 	# Open the previous json data
@@ -61,21 +65,16 @@ def main():
 
 	for key in data["data"]:
 		ghr = GITHUBRELEASES+key['latest']
+		version = {"name": key['name'], "version": key['latest'], "github-release-link": ghr }
+		k3sversions['k3s-versions'].append(version)
 
 		if key['name'] in VERSIONSWITHRELEASENOTES:
-			normalizedversion = re.sub('[^A-z0-9 -]', '', key['latest']).replace(" ", " ")
-			rn = RELEASENOTES+key['name']+".X#release-"+normalizedversion
+			release = repo.get_release(key['latest'])
 
-		elif key['name'] in ["stable","latest"]:
-			v = key['latest'].rsplit('.',1)[0]
-			normalizedversion = re.sub('[^A-z0-9 -]', '', key['latest']).replace(" ", " ")
-			rn = RELEASENOTES+v+".X#release-"+normalizedversion
+			with open("data/"+key['latest']+".md", "w") as releasefile:
+				releasefile.write(release.body)
 
-		else:
-			rn = ""
-
-		version = {"name": key['name'], "version": key['latest'], "github-releases": ghr, "release-notes": rn }
-		k3sversions['k3s-versions'].append(version)
+	g.close()
 
 	with open(OUTPUTFILE, "w") as json_file:
 		json_file.write(json.dumps(k3sversions, sort_keys=True))
