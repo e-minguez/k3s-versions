@@ -1,0 +1,213 @@
+{
+  "type": "collection",
+  "links": {
+    "self": "https://update.k3s.io/v1-release/channels"
+  },
+  "actions": {},
+  "resourceType": "channels",
+  "data": [
+    {
+      "id": "stable",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/stable"
+      },
+      "name": "stable",
+      "latest": "v1.27.7+k3s1"
+    },
+    {
+      "id": "latest",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/latest"
+      },
+      "name": "latest",
+      "latest": "v1.28.3+k3s1",
+      "latestRegexp": ".*",
+      "excludeRegexp": "(^[^+]+-|v1\\.25\\.5\\+k3s1|v1\\.26\\.0\\+k3s1)"
+    },
+    {
+      "id": "testing",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/testing"
+      },
+      "name": "testing",
+      "latest": "v1.28.3-rc2+k3s1",
+      "latestRegexp": "-(alpha|beta|rc)"
+    },
+    {
+      "id": "v1.16",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/v1.16"
+      },
+      "name": "v1.16",
+      "latest": "v1.16.15+k3s1",
+      "latestRegexp": "v1\\.16\\..*",
+      "excludeRegexp": "^[^+]+-"
+    },
+    {
+      "id": "v1.16-testing",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/v1.16-testing"
+      },
+      "name": "v1.16-testing",
+      "latest": "v1.16.14-rc1+k3s1",
+      "latestRegexp": "v1\\.16\\.[0-9]*-(alpha|beta|rc)"
+    },
+    {
+      "id": "v1.17",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/v1.17"
+      },
+      "name": "v1.17",
+      "latest": "v1.17.17+k3s1",
+      "latestRegexp": "v1\\.17\\..*",
+      "excludeRegexp": "^[^+]+-"
+    },
+    {
+      "id": "v1.17-testing",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/v1.17-testing"
+      },
+      "name": "v1.17-testing",
+      "latest": "v1.17.17-rc1+k3s1",
+      "latestRegexp": "v1\\.17\\.[0-9]*-(alpha|beta|rc)"
+    },
+    {
+      "id": "v1.18",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/v1.18"
+      },
+      "name": "v1.18",
+      "latest": "v1.18.20+k3s1",
+      "latestRegexp": "v1\\.18\\..*",
+      "excludeRegexp": "^[^+]+-"
+    },
+    {
+      "id": "v1.18-testing",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/v1.18-testing"
+      },
+      "name": "v1.18-testing",
+      "latest": "v1.18.20-rc1+k3s1",
+      "latestRegexp": "v1\\.18\\.[0-9]*-(alpha|beta|rc)"
+    },
+    {
+      "id": "v1.19",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/v1.19"
+      },
+      "name": "v1.19",
+      "latest": "v1.19.16+k3s1",
+      "latestRegexp": "v1\\.19\\..*",
+      "excludeRegexp": "^[^+]+-"
+    },
+    {
+      "id": "v1.20",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/v1.20"
+      },
+      "name": "v1.20",
+      "latest": "v1.20.15+k3s1",
+      "latestRegexp": "v1\\.20\\..*",
+      "excludeRegexp": "^[^+]+-"
+    },
+    {
+      "id": "v1.21",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/v1.21"
+      },
+      "name": "v1.21",
+      "latest": "v1.21.14+k3s1",
+      "latestRegexp": "v1\\.21\\..*",
+      "excludeRegexp": "^[^+]+-"
+    },
+    {
+      "id": "v1.22",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/v1.22"
+      },
+      "name": "v1.22",
+      "latest": "v1.22.17+k3s1",
+      "latestRegexp": "v1\\.22\\..*",
+      "excludeRegexp": "^[^+]+-"
+    },
+    {
+      "id": "v1.23",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/v1.23"
+      },
+      "name": "v1.23",
+      "latest": "v1.23.17+k3s1",
+      "latestRegexp": "v1\\.23\\..*",
+      "excludeRegexp": "^[^+]+-"
+    },
+    {
+      "id": "v1.24",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/v1.24"
+      },
+      "name": "v1.24",
+      "latest": "v1.24.17+k3s1",
+      "latestRegexp": "v1\\.24\\..*",
+      "excludeRegexp": "(^[^+]+-|v1\\.24\\.9\\+k3s1)"
+    },
+    {
+      "id": "v1.25",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/v1.25"
+      },
+      "name": "v1.25",
+      "latest": "v1.25.15+k3s1",
+      "latestRegexp": "v1\\.25\\..*",
+      "excludeRegexp": "(^[^+]+-|v1\\.25\\.5\\+k3s1)"
+    },
+    {
+      "id": "v1.26",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/v1.26"
+      },
+      "name": "v1.26",
+      "latest": "v1.26.10+k3s1",
+      "latestRegexp": "v1\\.26\\..*",
+      "excludeRegexp": "(^[^+]+-|v1\\.26\\.0\\+k3s1)"
+    },
+    {
+      "id": "v1.27",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/v1.27"
+      },
+      "name": "v1.27",
+      "latest": "v1.27.7+k3s1",
+      "latestRegexp": "v1\\.27\\..*",
+      "excludeRegexp": "^[^+]+-"
+    },
+    {
+      "id": "v1.28",
+      "type": "channel",
+      "links": {
+        "self": "https://update.k3s.io/v1-release/channels/v1.28"
+      },
+      "name": "v1.28",
+      "latest": "v1.28.3+k3s1",
+      "latestRegexp": "v1\\.28\\..*",
+      "excludeRegexp": "^[^+]+-"
+    }
+  ]
+}
