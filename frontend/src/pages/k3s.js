@@ -1,7 +1,7 @@
-import React from "react";
-import Layout from "../components/Layout";
-import channelsJSON from "../../../data/channels.json";
-import CommonHead from "../components/CommonHead";
+import React from 'react';
+import Layout from '../components/Layout';
+import channelsJSON from '../../../data/channels.json';
+import CommonHead from '../components/CommonHead';
 
 const K3sVersionsPage = () => {
   const { data } = channelsJSON;

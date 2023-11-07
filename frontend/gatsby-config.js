@@ -6,6 +6,6 @@ module.exports = {
     title: `K3s versions`,
     siteUrl: `https://www.yourdomain.tld`,
   },
-  plugins: ["gatsby-plugin-postcss"],
-  pathPrefix: "/k3s-versions",
+  plugins: ['gatsby-plugin-postcss'],
+  pathPrefix: '/k3s-versions',
 };
