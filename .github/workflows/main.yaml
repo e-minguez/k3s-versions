@@ -67,7 +67,7 @@ jobs:
 
     - name: Upload artifact
       if: steps.run.outputs.CHANGED != 'False'
-      uses: actions/upload-pages-artifact@v3
+      uses: actions/upload-artifact@v3
       with:
         path: ./k3s.json
         name: k3s-versions
