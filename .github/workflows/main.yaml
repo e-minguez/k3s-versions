@@ -58,13 +58,6 @@ jobs:
         pip install -r requirements.txt
         python k3s-versions.py > "${GITHUB_OUTPUT}"
 
-    - name: Commit & Push changes
-      if: steps.run.outputs.CHANGED != 'False'
-      uses: actions-js/push@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        message: "[no ci] Updated versions.json files"
-
     - name: Upload artifact
       if: steps.run.outputs.CHANGED != 'False'
       uses: actions/upload-artifact@v3
