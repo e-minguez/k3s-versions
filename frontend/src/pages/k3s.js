@@ -1,17 +1,18 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import channelsJSON from '../../../data/channels.json';
+import k3sVersionsJSON from '../../../data/k3s.json';
 import CommonHead from '../components/CommonHead';
 
 const K3sVersionsPage = () => {
-  const { data } = channelsJSON;
+  const versions = k3sVersionsJSON['k3s-versions'];
+  console.log('k3sVersionsJSON', k3sVersionsJSON['k3s-versions']);
   return (
     <Layout>
       <main>
         <h1 className="text-white bg-jungleGreen px-4 py-2">Here are k3s versions</h1>
         <ul>
-          {data.map((channel) => (
-            <li key={channel.id}>{channel.name}</li>
+          {versions.map((version) => (
+            <li key={version.name}>{version.name}</li>
           ))}
         </ul>
       </main>
