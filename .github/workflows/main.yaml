@@ -23,6 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       changed: ${{ steps.run.outputs.CHANGED }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -58,11 +60,11 @@ jobs:
         pip install -r requirements.txt
         python k3s-versions.py > "${GITHUB_OUTPUT}"
 
-    - name: Upload artifact
+    - name: Upload artifacts
       if: steps.run.outputs.CHANGED != 'False'
       uses: actions/upload-artifact@v3
       with:
-        path: ./k3s.json
+        path: data/
         name: k3s-versions
 
   # Deployment job
@@ -75,10 +77,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: k3s-versions
-
-      - shell: bash
-        run: |
-          mv k3s.json data/
 
       - name: Deploy to GitHub Pages
         uses: enriikke/gatsby-gh-pages-action@v2
