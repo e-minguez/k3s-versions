@@ -49,7 +49,8 @@ def main():
 	
 	# If the data didn't changed, exit soon
 	if data == previous:
-		sys.exit("CHANGED=false")
+		print("CHANGED=false")
+		sys.exit(0)
 	# Otherwise, save it for the future
 	else:
 		print("CHANGED=true")
