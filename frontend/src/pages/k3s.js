@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "../components/Layout";
 import channelsJSON from "../../../data/channels.json";
+import CommonHead from "../components/CommonHead";
 
 const K3sVersionsPage = () => {
   const { data } = channelsJSON;
@@ -19,11 +20,10 @@ const K3sVersionsPage = () => {
 };
 
 export const Head = () => (
-  <>
+  <CommonHead>
     <title>K3s versions</title>
     <meta name="description" content="A list of available K3s versions" />
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css"></link>
-  </>
+  </CommonHead>
 );
 
 export default K3sVersionsPage;
