@@ -5,12 +5,10 @@ import os
 import requests
 import sys
 import re
-
 import jinja2
-# import semantic_version
 
 from datetime import datetime
-# from natsort import natsorted
+
 
 URL = "https://update.k3s.io/v1-release/channels"
 HEADERS = {"accept": "application/json"}
