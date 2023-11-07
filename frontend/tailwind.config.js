@@ -11,6 +11,12 @@ module.exports = {
     },
     colors: {
       pineGreen: '#0C322C',
+      jungleGreen: '#0647a7f',
+      midnightBlue: '#192072',
+      waterholeBlue: '#2453FF',
+      mint: '#90EBCD',
+      persimmon: '#FE7C3F',
+      fog: '#EFEFEF',
     },
   },
   plugins: [],
