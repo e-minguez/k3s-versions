@@ -4,6 +4,7 @@ import json
 import os
 import requests
 import sys
+import re
 
 import jinja2
 # import semantic_version
@@ -15,6 +16,11 @@ URL = "https://update.k3s.io/v1-release/channels"
 HEADERS = {"accept": "application/json"}
 FILE = "k3s-versions.json"
 HTML = "k3s-index.html"
+GITHUBRELEASES = "https://github.com/k3s-io/k3s/releases/tag/"
+RELEASENOTES = "https://docs.k3s.io/release-notes/"
+VERSIONSWITHRELEASENOTES = ["v1.24","v1.25","v1.26","v1.27","v1.28"]
+OUTPUTFILE = "k3s.json"
+
 TITLE = "K3s versions"
 DISCLAIMER = """
 <p>This is an unofficial source</p>
@@ -52,31 +58,28 @@ def main():
 		with open(FILE, "w") as json_file:
 			json_file.write(json.dumps(data, sort_keys=True))
 
-	templates_dir = os.path.join(
-		os.path.dirname(os.path.realpath(__file__)), "templates"
-	)
-	
-	file_loader = jinja2.FileSystemLoader(templates_dir)
-	env = jinja2.Environment(loader=file_loader)
-	template = env.get_template("index.template")
+	k3sversions = {"k3s-versions": [], "date": datetime.now().strftime("%d/%m/%Y %H:%M:%S")}
 
-	stable = next(item for item in data["data"] if item["name"] == "stable")["latest"]
-	latest = next(item for item in data["data"] if item["name"] == "latest")["latest"]
-	testing = next(item for item in data["data"] if item["name"] == "testing")["latest"]
+	for key in data["data"]:
+		ghr = GITHUBRELEASES+key['latest']
 
-	mod_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+		if key['name'] in VERSIONSWITHRELEASENOTES:
+			normalizedversion = re.sub('[^A-z0-9 -]', '', key['latest']).replace(" ", " ")
+			rn = RELEASENOTES+key['name']+".X#release-"+normalizedversion
 
-	with open(HTML, "w") as output_file:
-			output_file.write(
-					template.render(
-							title=TITLE,
-							disclaimer=DISCLAIMER,
-							stable=stable,
-							latest=latest,
-							testing=testing,
-							mod_date=mod_date,
-					)
-			)
+		elif key['name'] in ["stable","latest"]:
+			v = key['latest'].rsplit('.',1)[0]
+			normalizedversion = re.sub('[^A-z0-9 -]', '', key['latest']).replace(" ", " ")
+			rn = RELEASENOTES+v+".X#release-"+normalizedversion
+
+		else:
+			rn = ""
+
+		version = {"name": key['name'], "version": key['latest'], "github-releases": ghr, "release-notes": rn }
+		k3sversions['k3s-versions'].append(version)
+
+	with open(OUTPUTFILE, "w") as json_file:
+		json_file.write(json.dumps(k3sversions, sort_keys=True))
 
 if __name__ == "__main__":
     main()

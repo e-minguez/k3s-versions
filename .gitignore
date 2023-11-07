@@ -162,3 +162,5 @@ cython_debug/
 
 *-versions.json
 *-index.html
+k3s.json
+rke2.json
