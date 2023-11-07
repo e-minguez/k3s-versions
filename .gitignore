@@ -162,4 +162,4 @@ cython_debug/
 *-versions.json
 
 # ignore the data location
-data/
+data/*
