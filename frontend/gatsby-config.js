@@ -3,9 +3,19 @@
  */
 module.exports = {
   siteMetadata: {
-    title: `K3s versions`,
+    title: `Versions`,
     siteUrl: `https://www.yourdomain.tld`,
   },
-  plugins: ['gatsby-plugin-postcss'],
+  plugins: [
+    'gatsby-plugin-postcss',
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /images/,
+        },
+      },
+    },
+  ],
   pathPrefix: '/k3s-versions',
 };

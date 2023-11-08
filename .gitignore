@@ -163,3 +163,5 @@ cython_debug/
 
 # ignore the data location
 data/*
+
+.DS_Store
