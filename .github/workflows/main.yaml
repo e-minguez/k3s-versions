@@ -69,7 +69,7 @@ jobs:
 
   # Deployment job
   build-ui:
-    if: needs.build.outputs.CHANGED != 'False'
+    if: needs.build-json.outputs.CHANGED != 'False'
     runs-on: ubuntu-latest
     needs: build-json
     steps:
