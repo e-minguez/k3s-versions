@@ -84,4 +84,4 @@ jobs:
           access-token: x-access-token:${{ secrets.GITHUB_TOKEN }}
           deploy-branch: gh-pages
           gatsby-args: --prefix-paths
-          working-dir: frontend
+          working-dir: "/frontend"
