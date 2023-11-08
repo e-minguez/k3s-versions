@@ -4,6 +4,8 @@ import React from 'react';
 
 const CommonHead = ({ children }) => (
   <>
+    <html lang="en" className="bg-slate-200 h-full" />
+    <body className="h-full" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css"></link>
     {children}
   </>
