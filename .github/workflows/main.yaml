@@ -82,3 +82,5 @@ jobs:
         uses: enriikke/gatsby-gh-pages-action@v2
         with:
           access-token: x-access-token:${{ secrets.GITHUB_TOKEN }}
+          deploy-branch: gh-pages
+          gatsby-args: --prefix-paths
