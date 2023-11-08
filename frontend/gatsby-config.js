@@ -4,7 +4,7 @@
 module.exports = {
   siteMetadata: {
     title: `Versions`,
-    siteUrl: `https://www.yourdomain.tld`,
+    siteUrl: `https://www.eduardominguez.es/k3s-versions`,
   },
   plugins: [
     'gatsby-plugin-postcss',

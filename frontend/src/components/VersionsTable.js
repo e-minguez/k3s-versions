@@ -9,7 +9,6 @@ const VersionsTable = ({ versions, lastUpdated }) => {
             <tr>
               <Th>Name</Th>
               <Th>Version</Th>
-              <Th>Releases</Th>
               <Th>Release notes</Th>
             </tr>
           </thead>
@@ -17,18 +16,17 @@ const VersionsTable = ({ versions, lastUpdated }) => {
             {versions.map((version) => (
               <tr key={version.name}>
                 <Td>{version.name}</Td>
-                <Td>{version.version}</Td>
                 <Td>
                   <a
                     className="hover:underline"
                     target="_blank"
                     rel="noreferrer"
-                    href={version['github-releases']}
+                    href={version['github-release-link']}
                   >
-                    {version['github-releases']}
+                    {version.version}
                   </a>
                 </Td>
-                <Td>{version['release-notes']}</Td>
+                <Td>Release notes</Td>
               </tr>
             ))}
           </tbody>
