@@ -62,7 +62,9 @@ def main():
 	g = Github(auth=auth)
 	repo = g.get_repo(REPO)
 
-	for key in data["data"]:
+	ordereddata = data["data"][:3] + sorted(data["data"][3:], key=lambda d: d['name'], reverse=True)
+
+	for key in ordereddata:
 		ghr = GITHUBRELEASES+key['latest']
 		version = {"name": key['name'], "version": key['latest'], "github-release-link": ghr }
 		k3sversions['k3s-versions'].append(version)
