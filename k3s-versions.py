@@ -17,15 +17,11 @@ from github import Auth
 # using an access token
 auth = Auth.Token(os.environ["GITHUB_TOKEN"])
 
-# Public Web Github
-g = Github(auth=auth)
-
-repo = g.get_repo('k3s-io/k3s')
-
 URL = "https://update.k3s.io/v1-release/channels"
 HEADERS = {"accept": "application/json"}
 FILE = "k3s-versions.json"
 GITHUBRELEASES = "https://github.com/k3s-io/k3s/releases/tag/"
+REPO = "k3s-io/k3s"
 
 VERSIONSWITHRELEASENOTES = ["v1.24","v1.25","v1.26","v1.27","v1.28","latest","stable"]
 OUTPUTFILE = "data/k3s.json"
@@ -63,6 +59,9 @@ def main():
 
 	k3sversions = {"k3s-versions": [], "date": datetime.now().strftime("%d/%m/%Y %H:%M:%S")}
 
+	g = Github(auth=auth)
+	repo = g.get_repo(REPO)
+
 	for key in data["data"]:
 		ghr = GITHUBRELEASES+key['latest']
 		version = {"name": key['name'], "version": key['latest'], "github-release-link": ghr }
@@ -72,6 +71,7 @@ def main():
 			release = repo.get_release(key['latest'])
 
 			with open("data/"+key['latest']+".md", "w") as releasefile:
+				releasefile.write("<!-- " + release.published_at.strftime("%d/%m/%Y %H:%M:%S") + " -->\n")
 				releasefile.write(release.body)
 
 	g.close()
