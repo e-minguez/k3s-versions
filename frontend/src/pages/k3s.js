@@ -27,8 +27,7 @@ const K3sVersionsPage = () => {
 };
 
 export const Head = () => (
-  <CommonHead>
-    <title>K3s | Versions</title>
+  <CommonHead title="K3s">
     <meta name="description" content="A list of available K3s versions" />
   </CommonHead>
 );
