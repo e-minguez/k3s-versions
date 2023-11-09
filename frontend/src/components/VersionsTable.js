@@ -1,6 +1,10 @@
 import React from 'react';
+import { Link } from 'gatsby';
+import slugify from '@sindresorhus/slugify';
 
-const VersionsTable = ({ versions, lastUpdated }) => {
+const VersionsTable = ({ versions, versionDetailsData, lastUpdated }) => {
+  const versionsWithDetail = versionDetailsData.nodes.map((v) => v.parent.name);
+
   return (
     <div className="overflow-auto rounded-xl bg-[#ffde7a]">
       <div className="my-8 mb-0 overflow-hidden shadow-sm">
@@ -26,7 +30,13 @@ const VersionsTable = ({ versions, lastUpdated }) => {
                     {version.version}
                   </a>
                 </Td>
-                <Td>Release notes</Td>
+                <Td>
+                  {versionsWithDetail.includes(version.version) ? (
+                    <Link to={slugify(version.version)}>View Details</Link>
+                  ) : (
+                    '-'
+                  )}
+                </Td>
               </tr>
             ))}
           </tbody>

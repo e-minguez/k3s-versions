@@ -15,10 +15,15 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "@mdx-js/react": "^2.3.0",
+    "@sindresorhus/slugify": "^2.2.1",
     "autoprefixer": "^10.4.16",
     "gatsby": "^5.12.4",
+    "gatsby-plugin-mdx": "^5.12.3",
     "gatsby-plugin-postcss": "^6.12.0",
     "gatsby-plugin-react-svg": "^3.3.0",
+    "gatsby-source-filesystem": "^5.12.1",
+    "gatsby-transformer-remark": "^6.12.3",
     "postcss": "^8.4.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
