@@ -1,0 +1,43 @@
+.markdown h1 {
+  @apply text-2xl my-5;
+}
+.markdown h2 {
+  @apply text-xl my-5 pb-1 border-b;
+  border-color: #064a6e
+}
+.markdown a {
+  @apply underline hover:no-underline;
+  color: #064a6e
+}
+.markdown p {
+  @apply mb-3;
+}
+.markdown ul {
+  @apply ml-2 mb-3 pl-3;
+}
+.markdown li {
+  @apply list-disc list-outside pl-2;
+  /* list-style-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxNCAxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBmaWxsPSIjMzhiZGY4Ij48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMy42ODUuMTUzYS43NTIuNzUyIDAgMCAxIC4xNDMgMS4wNTJsLTggMTAuNWEuNzUuNzUgMCAwIDEtMS4xMjcuMDc1bC00LjUtNC41YS43NS43NSAwIDAgMSAxLjA2LTEuMDZsMy44OTQgMy44OTMgNy40OC05LjgxN2EuNzUuNzUgMCAwIDEgMS4wNS0uMTQzWiIgLz48L3N2Zz4=") */
+}
+.markdown li > ul {
+  @apply mb-0;
+}
+.markdown li > ul > li {
+  @apply pl-2;
+  list-style-image: none;
+  list-style-type: circle;
+}
+.markdown code {
+  @apply p-1 text-sm;
+  background-color: #fff3d2;
+}
+.markdown table {
+  @apply mb-3 bg-white border-collapse border border-slate-300 table-auto text-sm shadow-sm;
+}
+.markdown td {
+  @apply border border-slate-300 px-4 py-2;
+}
+.markdown th {
+  @apply border border-slate-300 p-4 py-2 bg-slate-100 text-left font-bold;
+  color: #064a6e;
+}

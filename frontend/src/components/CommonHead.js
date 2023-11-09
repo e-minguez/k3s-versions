@@ -19,7 +19,7 @@ const CommonHead = ({ children, title }) => {
       <html lang="en" className="bg-slate-200 h-full" />
       <body className="h-full" />
       <title>
-        {title} | {data.site.siteMetadata.title}
+        {title && `${title} |`} {data.site.siteMetadata.title}
       </title>
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css"></link>
       {children}
