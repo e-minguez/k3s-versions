@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'gatsby';
-import slugify from '@sindresorhus/slugify';
+// import { Link } from 'gatsby';
+// import slugify from '@sindresorhus/slugify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 
-const VersionsTable = ({ versions, versionDetailsData, lastUpdated }) => {
+const VersionsTable = ({ versions, versionDetailsData, lastUpdated, onOpen }) => {
   const versionsWithDetail = versionDetailsData.nodes.map((v) => v.parent.name);
 
   return (
@@ -23,21 +23,33 @@ const VersionsTable = ({ versions, versionDetailsData, lastUpdated }) => {
                 <Td>{version.name}</Td>
                 <Td>
                   <a
-                    className="hover:underline"
+                    className="group hover:underline"
                     target="_blank"
                     rel="noreferrer"
                     href={version['github-release-link']}
                   >
-                    {version.version}
+                    {version.version}{' '}
+                    <FontAwesomeIcon
+                      className="invisible group-hover:visible"
+                      icon={faArrowUpRightFromSquare}
+                    />
                   </a>
                 </Td>
                 <Td className="text-right">
-                  {versionsWithDetail.includes(version.version) && (
+                  {/* {versionsWithDetail.includes(version.version) && (
                     <Link className="hover:underline" to={slugify(version.version)}>
                       <button className="text-white rounded-md bg-[#064a6e] px-2 py-1 text-sm shadow-sm hover:bg-[#006398]">
                         <FontAwesomeIcon icon={faMagnifyingGlass} /> View Details
                       </button>
                     </Link>
+                  )} */}
+                  {versionsWithDetail.includes(version.version) && (
+                    <button
+                      onClick={() => onOpen(version.version)}
+                      className="text-white rounded-md bg-[#064a6e] px-2 py-1 text-sm shadow-sm hover:bg-[#006398]"
+                    >
+                      <FontAwesomeIcon icon={faMagnifyingGlass} /> View Details
+                    </button>
                   )}
                 </Td>
               </tr>
