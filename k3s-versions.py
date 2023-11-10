@@ -20,8 +20,8 @@ auth = Auth.Token(os.environ["GITHUB_TOKEN"])
 URL = "https://update.k3s.io/v1-release/channels"
 HEADERS = {"accept": "application/json"}
 FILE = "k3s-versions.json"
-GITHUBRELEASES = "https://github.com/k3s-io/k3s/releases/tag/"
 REPO = "k3s-io/k3s"
+GITHUBRELEASES = f"https://github.com/{REPO}/releases/tag/"
 
 OUTPUTFILE = "data/k3s.json"
 
@@ -60,12 +60,20 @@ def main():
 
 	g = Github(auth=auth)
 	repo = g.get_repo(REPO)
+	releases=repo.get_releases()
 
 	ordereddata = data["data"][:3] + sorted(data["data"][3:], key=lambda d: d['name'], reverse=True)
 
 	for key in ordereddata:
-		ghr = GITHUBRELEASES+key['latest']
-		version = {"name": key['name'], "version": key['latest'], "github-release-link": ghr }
+		
+		previous = []
+		for i in list(filter(lambda r: re.match(key['latest'][:6], r.title),releases)):
+			previous.append({"version": i.title,
+										"github-release-link": f"{GITHUBRELEASES}{i.title}"})
+		version = {"name": key['name'],
+						 "version": key['latest'],
+						 "github-release-link": f"{GITHUBRELEASES}{key['latest']}",
+						 "previous": previous }
 		k3sversions['k3s-versions'].append(version)
 
 		release = repo.get_release(key['latest'])
