@@ -24,7 +24,7 @@ const VersionDetailPage = ({ data }) => {
         <Link to="/" className="underline hover:no-underline">
           K3s Versions
         </Link>{' '}
-        > {data.markdownRemark.parent.name}
+        &gt; {data.markdownRemark.parent.name}
       </div>
       <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
         <h1 className="mb-2 text-2xl">{data.markdownRemark.parent.name}</h1>
