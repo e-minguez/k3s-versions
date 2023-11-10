@@ -35,7 +35,7 @@ jobs:
       env:
         cache-name: cache-versions-json
       with:
-        path: "~/k3s-versions.json"
+        path: "k3s-versions.json"
         key: ${{ env.cache-name }}-${{ hashFiles('**/k3s-versions.json') }}
         restore-keys: ${{ env.cache-name }}-
 
