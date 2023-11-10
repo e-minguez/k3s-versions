@@ -53,6 +53,11 @@ jobs:
         python-version: '3.11'
         cache: 'pip'
 
+    - name: Invalidate versions.json cache if frontend changed
+      if: steps.changes.outputs.frontend == 'true'
+      run: |
+        rm -f k3s-versions.json
+
     - name: Run k3s-versions
       id: run
       run: |
