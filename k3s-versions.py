@@ -73,7 +73,7 @@ def main():
 		version = {"name": key['name'],
 						 "version": key['latest'],
 						 "github-release-link": f"{GITHUBRELEASES}{key['latest']}",
-						 "previous": previous }
+						 "all-versions": previous }
 		k3sversions['k3s-versions'].append(version)
 
 		release = repo.get_release(key['latest'])
