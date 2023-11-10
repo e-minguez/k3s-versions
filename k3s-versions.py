@@ -69,7 +69,9 @@ def main():
 		previous = []
 		for i in list(filter(lambda r: re.match(key['latest'][:6], r.title),releases)):
 			previous.append({"version": i.title,
-										"github-release-link": f"{GITHUBRELEASES}{i.title}"})
+										"github-release-link": f"{GITHUBRELEASES}{i.title}",
+										"prerelease": i.prerelease,
+										"released": i.published_at.strftime("%d/%m/%Y %H:%M:%S")})
 		version = {"name": key['name'],
 						 "version": key['latest'],
 						 "github-release-link": f"{GITHUBRELEASES}{key['latest']}",
