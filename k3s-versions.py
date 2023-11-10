@@ -23,7 +23,6 @@ FILE = "k3s-versions.json"
 GITHUBRELEASES = "https://github.com/k3s-io/k3s/releases/tag/"
 REPO = "k3s-io/k3s"
 
-VERSIONSWITHRELEASENOTES = ["v1.24","v1.25","v1.26","v1.27","v1.28","latest","stable"]
 OUTPUTFILE = "data/k3s.json"
 
 def main():
@@ -69,12 +68,14 @@ def main():
 		version = {"name": key['name'], "version": key['latest'], "github-release-link": ghr }
 		k3sversions['k3s-versions'].append(version)
 
-		if key['name'] in VERSIONSWITHRELEASENOTES:
-			release = repo.get_release(key['latest'])
+		release = repo.get_release(key['latest'])
 
-			with open("data/"+key['latest']+".md", "w") as releasefile:
-				releasefile.write("<!-- " + release.published_at.strftime("%d/%m/%Y %H:%M:%S") + " -->\n")
-				releasefile.write(release.body)
+		with open("data/"+key['latest']+".md", "w") as releasefile:
+			releasefile.writelines(["---\n",
+										 f"version: {key['latest']}\n",
+										 f"releaseDate: {release.published_at.strftime('%d/%m/%Y %H:%M:%S')}\n",
+										 "---\n"])
+			releasefile.write(release.body)
 
 	g.close()
 
