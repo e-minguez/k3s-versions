@@ -14,10 +14,6 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
   build-json:
     runs-on: ubuntu-latest
@@ -60,6 +56,13 @@ jobs:
         pip install -r requirements.txt
         python k3s-versions.py > "${GITHUB_OUTPUT}"
 
+    - uses: dorny/paths-filter@v2
+      id: changes
+      with:
+        filters: |
+          src:
+            - 'frontend/**'
+
     - name: Upload artifacts
       if: steps.run.outputs.CHANGED != 'False'
       uses: actions/upload-artifact@v3
@@ -69,12 +72,15 @@ jobs:
 
   # Deployment job
   build-ui:
-    if: needs.build-json.outputs.CHANGED != 'False'
+    if: |
+      needs.build-json.outputs.CHANGED == 'True' ||
+      needs.build-json.changes.src == 'true'
     runs-on: ubuntu-latest
     needs: build-json
     permissions:
       pages: write
       contents: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
