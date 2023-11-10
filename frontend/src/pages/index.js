@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/Layout';
 import k3sVersionsJSON from '../../../data/k3s.json';
 import CommonHead from '../components/CommonHead';
 import VersionsTable from '../components/VersionsTable';
+import DetailsPanels from '../components/DetailsPanels';
 
 export const versionDetailsQuery = graphql`
   query VersionDetailsQuery {
     versionDetails: allMarkdownRemark {
       nodes {
         id
+        html
         parent {
           ... on File {
             name
@@ -21,7 +23,14 @@ export const versionDetailsQuery = graphql`
 `;
 
 const K3sVersionsPage = ({ data }) => {
+  const [open, setOpen] = useState(null);
+  const onClose = () => {
+    setOpen(null);
+  };
+  const handleOpen = (version) => setOpen(version);
+
   const versions = k3sVersionsJSON['k3s-versions'];
+
   return (
     <Layout>
       <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
@@ -29,7 +38,9 @@ const K3sVersionsPage = ({ data }) => {
           versions={versions}
           versionDetailsData={data.versionDetails}
           lastUpdated={k3sVersionsJSON.date}
+          onOpen={handleOpen}
         />
+        <DetailsPanels versionDetailsData={data.versionDetails} open={open} onClose={onClose} />
       </div>
     </Layout>
   );
