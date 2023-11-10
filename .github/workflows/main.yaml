@@ -33,7 +33,7 @@ jobs:
       id: changes
       with:
         filters: |
-          src:
+          frontend:
             - 'frontend/**'
 
     # Cache versions.json so it doesn't update the site if there are no changes
@@ -69,7 +69,7 @@ jobs:
   build-ui:
     if: |
       needs.build-json.outputs.CHANGED == 'true' ||
-      needs.build-json.changes.src == 'true'
+      needs.build-json.changes.outputs.frontend == 'true'
     runs-on: ubuntu-latest
     needs: build-json
     permissions:
