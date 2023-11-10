@@ -29,30 +29,21 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    # Use GitHub Actions' cache to shorten build times and decrease load on servers
-    - name: pip cache
-      uses: actions/cache@v3
-      env:
-        cache-name: cache-pip
-      with:
-        path: ~/.cache/pip
-        key: ${{ env.cache-name }}-${{ hashFiles('**/requirements/*') }}
-        restore-keys: ${{ env.cache-name }}-
-
     # Cache versions.json so it doesn't update the site if there are no changes
     - name: versions.json cache
       uses: actions/cache@v3
       env:
         cache-name: cache-versions-json
       with:
-        path: "k3s-versions.json"
-        key: ${{ env.cache-name }}-${{ hashFiles('k3s-versions.json') }}
+        path: "~/k3s-versions.json"
+        key: ${{ env.cache-name }}-${{ hashFiles('**/k3s-versions.json') }}
         restore-keys: ${{ env.cache-name }}-
 
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
+        cache: 'pip'
 
     - name: Run k3s-versions
       id: run
