@@ -58,7 +58,7 @@ jobs:
       id: run
       run: |
         pip install -r requirements.txt
-        python k3s-versions.py > "${GITHUB_OUTPUT}"
+        python k3s-versions.py | tee "${GITHUB_OUTPUT}"
 
     - name: Upload artifacts
       if: steps.run.outputs.CHANGED == 'true'
