@@ -30,28 +30,41 @@ export default function SubversionsModal({ versions, close, isOpen }) {
             >
               <Dialog.Panel className="bg-white relative transform overflow-hidden rounded-lg text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="p-6">
-                  {versions.map((version) => (
-                    <div key={version.version}>
-                      <div className="flex flex-row items-center justify-between">
-                        <a
-                          href={version['github-release-link']}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-gray-700 block px-4 py-2 text-sm hover:underline"
-                        >
-                          {version.version}
-                        </a>
-                        {version.prerelease && (
-                          <span className="bg-gray-50 text-gray-600 ring-gray-500/10 me-2 inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset">
-                            pre-release
-                          </span>
-                        )}
-                        <span className="text-gray-700 block px-4 py-2 text-sm">
-                          {version.released}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
+                  <table className="w-full table-auto border-collapse text-sm">
+                    <thead>
+                      <tr>
+                        <th>Version</th>
+                        <th>Pre-release</th>
+                        <th>Release date</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white">
+                      {versions.map((version) => (
+                        <tr key={version.version}>
+                          <td>
+                            <a
+                              href={version['github-release-link']}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-gray-700 block px-4 py-2 pl-0 text-sm hover:underline"
+                            >
+                              {version.version}
+                            </a>
+                          </td>
+                          <td>
+                            {version.prerelease && (
+                              <span className="bg-gray-50 text-gray-600 ring-gray-500/10 me-2 inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset">
+                                pre-release
+                              </span>
+                            )}
+                          </td>
+                          <td className="text-gray-700 block px-4 py-2 pl-0 text-sm">
+                            {version.released}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
