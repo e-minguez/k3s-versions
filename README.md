@@ -75,6 +75,8 @@ To avoid getting all the data everytime, it checks first if the data from the re
 
 The data is presented as a static website which is regenerated and deployed every time the data is updated. The main page displays list of K3s versions showing the name and latest patch version for each. Each version has a 'View Details' button which reveals side panel with Markdown formatted release notes for the specific version. Clicking the dropdown caret opens a list of all existing patch versions linking to the respective release on GitHub.
 
+<img width="330" alt="Screenshot 2023-12-12 at 12 29 43" src="https://github.com/e-minguez/k3s-versions/assets/1121740/113b7a81-8d66-4248-82fe-c348b88af44a"> <img width="330" alt="Screenshot 2023-12-12 at 12 30 05" src="https://github.com/e-minguez/k3s-versions/assets/1121740/487abc8c-f9e8-46b8-aabd-0cdac1849fed"> <img width="330" alt="Screenshot 2023-12-12 at 12 29 55" src="https://github.com/e-minguez/k3s-versions/assets/1121740/c42147cc-e826-4e90-9228-a67c2d43104b">
+
 Since the main project requirement was to keep it light weight and leverage the GitHub actions and have it published in server less environment on GitHub pages, we've decided to use static site created with [Gatsby framework](https://www.gatsbyjs.com/). Gatsby provides an easy way to build static sites using Javascript and React to define site pages and components and easily access data from various sources using Graphql queries.
 
 ## Automation
