@@ -15,7 +15,7 @@ const VersionsTable = ({ versions, versionDetailsData, lastUpdated, onOpen }) =>
           <thead>
             <tr>
               <Th>Name</Th>
-              <Th>Versions</Th>
+              <Th>Version</Th>
             </tr>
           </thead>
           <tbody className="bg-white">
@@ -23,7 +23,7 @@ const VersionsTable = ({ versions, versionDetailsData, lastUpdated, onOpen }) =>
               <tr key={version.name}>
                 <Td>{version.name}</Td>
                 <Td>
-                  <VersionsDropdown versions={version['all-versions']} />
+                  <VersionsDropdown version={version} />
                 </Td>
                 <Td className="text-right">
                   {/* {versionsWithDetail.includes(version.version) && (
@@ -38,7 +38,7 @@ const VersionsTable = ({ versions, versionDetailsData, lastUpdated, onOpen }) =>
                       onClick={() => onOpen(version.version)}
                       //   className="text-white rounded-md bg-[#064a6e] px-2 py-1 text-sm shadow-sm hover:bg-[#006398]"
 
-                      className="bg-white text-gray-900 ring-gray-300 hover:bg-gray-50 justify-center gap-x-1.5 rounded-md px-3 py-2 text-left text-sm font-semibold shadow-sm ring-1 ring-inset"
+                      className="justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-left text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                     >
                       <FontAwesomeIcon icon={faMagnifyingGlass} /> View Details
                     </button>
@@ -63,7 +63,7 @@ const Th = ({ children }) => (
 );
 
 const Td = ({ children, className = '' }) => (
-  <td className={`${className} border-slate-200 text-slate-500 border-b p-3 pl-8 text-left`}>
+  <td className={`${className} border-b border-slate-200 p-3 pl-8 text-left text-slate-500`}>
     {children}
   </td>
 );
