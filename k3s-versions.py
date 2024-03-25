@@ -85,7 +85,7 @@ def main():
 										 f"version: {key['latest']}\n",
 										 f"releaseDate: {release.published_at.strftime('%d/%m/%Y %H:%M:%S')}\n",
 										 "---\n"])
-			releasefile.write(release.body)
+			releasefile.write(release.body or '')
 
 	g.close()
 
