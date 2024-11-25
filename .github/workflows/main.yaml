@@ -95,7 +95,8 @@ jobs:
       - name: Copy the json file to the static gatsby folder
         run:
           mkdir -p ./frontend/static/
-          cp ./data/k3s-versions.json ./frontend/static/
+          cp ./data/k3s.json ./frontend/static/
+          ls ./frontend/static/
 
       - name: Deploy to GitHub Pages
         uses: enriikke/gatsby-gh-pages-action@v2
