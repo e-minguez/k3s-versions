@@ -93,7 +93,7 @@ jobs:
           path: data/
 
       - name: Copy the json file to the static gatsby folder
-        run:
+        run: |
           mkdir -p ./frontend/static/
           cp ./data/k3s.json ./frontend/static/
           ls ./frontend/static/
