@@ -16,6 +16,8 @@ This repo generates a website that shows the different K3s versions at a glance.
 
 See it [live](https://www.eduardominguez.es/k3s-versions/)!
 
+The json file can be also viewed [live](https://www.eduardominguez.es/k3s-versions/k3s.json)
+
 > :warning: This is an unofficial tool, don't blame us!
 
 ## Background
