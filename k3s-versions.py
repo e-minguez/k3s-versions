@@ -64,13 +64,14 @@ def main():
 
 	ordereddata = data["data"][:3] + sorted(data["data"][3:], key=lambda d: d['name'], reverse=True)
 	for key in ordereddata:
-		previous = []
-		for i in list(filter(lambda r: 'latest' in key and re.match(key['latest'][:6], r.title), releases)):
-			previous.append({"version": i.title,
-										"github-release-link": f"{GITHUBRELEASES}{i.title}",
-										"prerelease": i.prerelease,
-										"released": i.published_at.strftime("%d/%m/%Y %H:%M:%S")})
+		# Some releases (k3s 1.16-testing & 1.17-testing don't have a latest version, skipping them
 		if 'latest' in key:
+			previous = []
+			for i in list(filter(lambda r: re.match(key['latest'][:6], r.title),releases)):
+				previous.append({"version": i.title,
+											"github-release-link": f"{GITHUBRELEASES}{i.title}",
+											"prerelease": i.prerelease,
+											"released": i.published_at.strftime("%d/%m/%Y %H:%M:%S")})
 			version = {"name": key['name'],
 							"version": key['latest'],
 							"github-release-link": f"{GITHUBRELEASES}{key['latest']}",
@@ -85,8 +86,6 @@ def main():
 											f"releaseDate: {release.published_at.strftime('%d/%m/%Y %H:%M:%S')}\n",
 											"---\n"])
 				releasefile.write(release.body or '')
-		else:
-				print(f"Release {key['id']} doesn't contain latest: {key}")
 
 	g.close()
 
