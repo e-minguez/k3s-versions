@@ -4,8 +4,9 @@ on:
   push:
     branches:
       - main
-  schedule:
-    - cron:  '56 * * * *'
+# Disabling scheduled runs because of the issues
+#  schedule:
+#    - cron:  '56 * * * *'
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
