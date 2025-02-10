@@ -20,6 +20,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@headlessui/react": "^2.2.0",
     "@sindresorhus/slugify": "^2.2.1",
+    "@tailwindcss/postcss": "^4.0.5",
     "autoprefixer": "^10.4.16",
     "gatsby": "^5.14.0",
     "gatsby-plugin-postcss": "^6.12.0",
