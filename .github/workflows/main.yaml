@@ -105,3 +105,5 @@ jobs:
           deploy-branch: gh-pages
           gatsby-args: --prefix-paths
           working-dir: "./frontend"
+          git-config-name: github-actions[bot]
+          git-config-email: github-actions[bot]@users.noreply.github.com
