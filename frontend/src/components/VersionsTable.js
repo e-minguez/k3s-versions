@@ -52,6 +52,7 @@ const VersionsTable = ({ versions, versionDetailsData, lastUpdated, onOpen }) =>
       <p className="pb-5 pr-5 pt-3 text-right text-sm font-light italic text-[#064a6e]">
         Last updated: {lastUpdated}
       </p>
+        <img src="https://librecounter.org/counter.svg" referrerPolicy="unsafe-url" width="0" />
     </div>
   );
 };
