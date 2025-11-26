@@ -6,6 +6,7 @@ import requests
 import sys
 import re
 import jinja2
+from packaging.version import Version
 
 from datetime import datetime
 
@@ -62,7 +63,7 @@ def main():
 	repo = g.get_repo(REPO)
 	releases=repo.get_releases()
 
-	ordereddata = data["data"][:3] + sorted(data["data"][3:], key=lambda d: d['name'], reverse=True)
+	ordereddata = data["data"][:3] + sorted(data["data"][3:], key=lambda d: Version(d['name']), reverse=True)
 	for key in ordereddata:
 		# Some releases (k3s 1.16-testing & 1.17-testing don't have a latest version, skipping them
 		if 'latest' in key:

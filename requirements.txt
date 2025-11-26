@@ -3,3 +3,4 @@
 Jinja2==3.1.6
 PyGithub==2.8.1
 requests==2.32.5
+packaging==24.0
