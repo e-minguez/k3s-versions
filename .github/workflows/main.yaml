@@ -40,7 +40,7 @@ jobs:
 
     # Cache versions.json so it doesn't update the site if there are no changes
     - name: versions.json cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       env:
         cache-name: cache-versions-json
       with:
