@@ -15,8 +15,7 @@ from github import Github
 from github import Auth
 
 # using an access token
-token = os.environ.get("GITHUB_TOKEN")
-auth = Auth.Token(token) if token else None
+auth = Auth.Token(os.environ["GITHUB_TOKEN"])
 
 URL = "https://update.k3s.io/v1-release/channels"
 HEADERS = {"accept": "application/json"}
@@ -48,8 +47,6 @@ def main():
 		raise SystemExit(err)
 	
 	# If the data didn't changed, exit soon
-	# Note: checking if GITHUB_TOKEN is present to force run if needed for testing?
-	# No, relying on standard logic.
 	if data == previous:
 		print("CHANGED=false")
 		sys.exit(0)
@@ -61,59 +58,34 @@ def main():
 
 	k3sversions = {"k3s-versions": [], "date": datetime.now().strftime("%d/%m/%Y %H:%M:%S")}
 
-	if auth:
-		g = Github(auth=auth)
-	else:
-		g = Github()
-
+	g = Github(auth=auth)
 	repo = g.get_repo(REPO)
-
-	# Optimization: Fetch all releases once to avoid rate limits and improve performance
-	# There are many releases, so this might take a bit, but it is better than fetching per channel
-	# We only need the title, prerelease status, and published date.
-	# Getting all releases might still hit limits if there are thousands.
-	# But checking the original logic: it filtered `releases` (the PaginatedList) multiple times.
-	# Converting to list here is the safest way to avoid multiple API calls during the loop.
-	releases = list(repo.get_releases())
+	releases=repo.get_releases()
 
 	ordereddata = data["data"][:3] + sorted(data["data"][3:], key=lambda d: d['name'], reverse=True)
 	for key in ordereddata:
 		# Some releases (k3s 1.16-testing & 1.17-testing don't have a latest version, skipping them
 		if 'latest' in key:
-			previous_versions = []
-
-			# key['latest'] is something like "v1.30.14+k3s2" or "v1.18.2-rc3+k3s1"
-			# key['latest'][:6] takes the first 6 chars.
-			search_pattern = re.escape(key['latest'][:6])
-
-			for i in list(filter(lambda r: re.match(search_pattern, r.title), releases)):
-				previous_versions.append({
-					"version": i.title,
-					"github-release-link": f"{GITHUBRELEASES}{i.title}",
-					"prerelease": i.prerelease,
-					"released": i.published_at.strftime("%d/%m/%Y %H:%M:%S")
-				})
-
-			version = {
-				"name": key['name'],
-				"version": key['latest'],
-				"github-release-link": f"{GITHUBRELEASES}{key['latest']}",
-				"all-versions": previous_versions
-			}
+			previous = []
+			for i in list(filter(lambda r: re.match(key['latest'][:6], r.title),releases)):
+				previous.append({"version": i.title,
+											"github-release-link": f"{GITHUBRELEASES}{i.title}",
+											"prerelease": i.prerelease,
+											"released": i.published_at.strftime("%d/%m/%Y %H:%M:%S")})
+			version = {"name": key['name'],
+							"version": key['latest'],
+							"github-release-link": f"{GITHUBRELEASES}{key['latest']}",
+							"all-versions": previous }
 			k3sversions['k3s-versions'].append(version)
 
-			try:
-				release = repo.get_release(key['latest'])
-				with open("data/"+key['latest']+".md", "w") as releasefile:
-					releasefile.writelines(["---\n",
-												f"version: {key['latest']}\n",
-												f"releaseDate: {release.published_at.strftime('%d/%m/%Y %H:%M:%S')}\n",
-												"---\n"])
-					releasefile.write(release.body or '')
-			except Exception as e:
-				print(f"Warning: Could not get release details for {key['latest']}: {e}")
-				# If we can't get the specific release details, we might want to continue
-				# instead of failing the whole script.
+			release = repo.get_release(key['latest'])
+
+			with open("data/"+key['latest']+".md", "w") as releasefile:
+				releasefile.writelines(["---\n",
+											f"version: {key['latest']}\n",
+											f"releaseDate: {release.published_at.strftime('%d/%m/%Y %H:%M:%S')}\n",
+											"---\n"])
+				releasefile.write(release.body or '')
 
 	g.close()
 
