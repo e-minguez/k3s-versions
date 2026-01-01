@@ -22,17 +22,19 @@
     "@sindresorhus/slugify": "^3.0.0",
     "@tailwindcss/postcss": "^4.0.5",
     "autoprefixer": "^10.4.16",
-    "gatsby": "^5.14.6",
+    "gatsby": "^5.15.0",
     "gatsby-plugin-postcss": "^6.12.0",
     "gatsby-plugin-react-svg": "^3.3.0",
     "gatsby-source-filesystem": "^5.12.1",
     "gatsby-transformer-remark": "^6.12.3",
     "postcss": "^8.4.31",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "tailwindcss": "^4.0.0"
   },
   "devDependencies": {
+    "@types/react": "^18.3.27",
+    "@types/react-dom": "^18.3.7",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.7.0"
   },
