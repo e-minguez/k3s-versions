@@ -2,4 +2,4 @@
 
 Jinja2==3.1.6
 PyGithub==2.9.0
-requests==2.33.0
+requests==2.33.1
