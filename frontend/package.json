@@ -27,7 +27,7 @@
     "gatsby-plugin-react-svg": "^3.3.0",
     "gatsby-source-filesystem": "^5.12.1",
     "gatsby-transformer-remark": "^6.12.3",
-    "postcss": "^8.4.31",
+    "postcss": "^8.5.26",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwindcss": "^4.0.0"
