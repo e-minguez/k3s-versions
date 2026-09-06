@@ -1,0 +1,110 @@
+name: CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+      frontend: ${{ steps.filter.outputs.frontend }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: dorny/paths-filter@v4
+        id: filter
+        with:
+          filters: |
+            backend:
+              - 'requirements.txt'
+              - 'k3s-versions.py'
+              - '.github/workflows/ci.yaml'
+            frontend:
+              - 'frontend/**'
+              - '.github/workflows/ci.yaml'
+
+  # Also runs for frontend-only changes: frontend/src/pages/index.js imports
+  # ../../../data/k3s.json, so gatsby cannot build until this job generates it.
+  build-backend:
+    needs: changes
+    if: needs.changes.outputs.backend == 'true' || needs.changes.outputs.frontend == 'true'
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # No k3s-versions.json cache here on purpose: the script exits early with
+      # CHANGED=false before writing data/ when the fetched data is unchanged.
+      - name: Generate data
+        run: python k3s-versions.py
+
+      - name: Verify generated data
+        run: |
+          test -s data/k3s.json
+          python -c "import json;d=json.load(open('data/k3s.json'));assert d['k3s-versions']"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          path: data/
+          name: k3s-versions
+
+  build-frontend:
+    needs: [changes, build-backend]
+    if: needs.changes.outputs.frontend == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Download json from build-backend job
+        uses: actions/download-artifact@v8
+        with:
+          name: k3s-versions
+          path: data/
+
+      - name: Install dependencies
+        run: npm ci
+
+      # --prefix-paths matches the gatsby-args used by the deploy workflow
+      - name: Build
+        run: npm run build -- --prefix-paths
+
+  # Single stable required status check: the build jobs are skipped depending on
+  # which paths changed, and skipped jobs are unreliable as required checks.
+  ci-ok:
+    needs: [changes, build-backend, build-frontend]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail if any job failed or was cancelled
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+        run: exit 1
+
+      - run: echo ok
