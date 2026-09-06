@@ -31,6 +31,7 @@ jobs:
             frontend:
               - 'frontend/**'
               - '.github/workflows/ci.yaml'
+              - '.github/workflows/main.yaml'
 
   # Also runs for frontend-only changes: frontend/src/pages/index.js imports
   # ../../../data/k3s.json, so gatsby cannot build until this job generates it.
@@ -79,7 +80,7 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: '22'
+          node-version: '24'
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
 
