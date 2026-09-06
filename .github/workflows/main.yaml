@@ -33,7 +33,9 @@ jobs:
     - uses: dorny/paths-filter@v4
       id: changes
       with:
-        base: HEAD
+        # No base: on a push, paths-filter compares against the commit the push
+        # started from. Setting base: HEAD compared the pushed commit against
+        # itself, so the diff was always empty and this filter never fired.
         filters: |
           frontend:
             - 'frontend/**'
