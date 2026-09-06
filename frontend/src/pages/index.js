@@ -12,6 +12,9 @@ export const versionDetailsQuery = graphql`
       nodes {
         id
         html
+        frontmatter {
+          releaseDate
+        }
         parent {
           ... on File {
             name

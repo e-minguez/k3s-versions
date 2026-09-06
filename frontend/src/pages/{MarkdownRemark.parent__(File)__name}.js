@@ -12,6 +12,9 @@ export const query = graphql`
           name
         }
       }
+      frontmatter {
+        releaseDate
+      }
       html
     }
   }
@@ -28,6 +31,11 @@ const VersionDetailPage = ({ data }) => {
       </div>
       <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
         <h1 className="mb-2 text-2xl">{data.markdownRemark.parent.name}</h1>
+        {data.markdownRemark.frontmatter?.releaseDate && (
+          <p className="mb-2 text-xs text-gray-500">
+            Released {data.markdownRemark.frontmatter.releaseDate}
+          </p>
+        )}
         <MarkdownContent content={data.markdownRemark.html} />
       </div>
     </Layout>

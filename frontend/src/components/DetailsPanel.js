@@ -59,6 +59,11 @@ export default function DetailsPanels({ isOpen, onClose, versionDetail }) {
                       <Dialog.Title className="text-gray-900 text-base font-semibold leading-6">
                         {versionDetail.parent.name}
                       </Dialog.Title>
+                      {versionDetail.frontmatter?.releaseDate && (
+                        <p className="mt-1 text-xs text-gray-500">
+                          Released {versionDetail.frontmatter.releaseDate}
+                        </p>
+                      )}
                     </div>
                     <div className="relative mt-6 flex-1 px-4 sm:px-6">
                       <MarkdownContent content={versionDetail.html} />
